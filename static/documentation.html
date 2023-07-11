@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Amazon Monitoring API Documentation</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto">
+    <style>
+    body {
+        font-family: 'Helvetica', sans-serif;
+        padding-left: 5%;
+        max-width: 90%;
+    }
+
+    code {
+        padding: 5px;
+        background-color: #eee;
+        display: block;
+    }
+    </style>
+</head>
+<body>
+<h1>Amazon Monitoring API Documentation</h1>
+<p>This API provides the latest, non-cached data about all Amazon products given an ASIN (Amazon Standard Identification Number).</p>
+<p>Due to the nature of how data is updated serverside, response times can range from a few ms to ~800ms, depending on Amazon's rate limits.</p>
+<br>
+<h2>Available Endpoints</h2>
+<hr>
+<h3>Product Endpoint (GET)</h3>
+<p><strong>URL:</strong> <a href="/product/{ASIN}">https://amazon.cloudsolve.dev/product/{ASIN}</a></p>
+<p><strong>Query Parameter:</strong>
+    <em>key</em> (your designated API key)</p>
+<p><strong>Example URL:</strong> <a href="/product/B07DQSC9B5?key=API_KEY">https://amazon.cloudsolve.dev/product/B07DQSC9B5?key=API_KEY</a></p>
+<h3>Successful Response:</h3>
+<p><strong>Status Code:</strong> 200</p>
+<pre><code>{
+  "ASIN": "B07DQSC9B5",
+  "Offers": {
+    "Listings": [
+      {
+        "Availability": {
+          "MaxOrderQuantity": 15,
+          "Message": "In stock soon. Order it now.",
+          "MinOrderQuantity": 1,
+          "Type": "Backorderable"
+        },
+        "Condition": {
+          "SubCondition": {
+            "Value": "New"
+          },
+          "Value": "New"
+        },
+        "DeliveryInfo": {
+          "IsAmazonFulfilled": true,
+          "IsFreeShippingEligible": true,
+          "IsPrimeEligible": true
+        },
+        "Id": "9NieDsO5KPd4X%2BXiYmNxskvLbm0PABQcz6RLK%2BvPyPV1grYkvkCNKrqqpttqHaNoQ3uLMbD22PkmXiwYeAma3MvHbaVUNBL4eEbzuFf5rSS6Z4%2FoRRNStQ%3D%3D",
+        "IsBuyBoxWinner": true,
+        "MerchantInfo": {
+          "FeedbackCount": 387,
+          "FeedbackRating": 4.68,
+          "Id": "ATVPDKIKX0DER",
+          "Name": "Amazon.com"
+        },
+        "Price": {
+          "Amount": 35.97,
+          "Currency": "USD",
+          "DisplayAmount": "$35.97",
+          "Savings": {
+            "Amount": 4.02,
+            "Currency": "USD",
+            "DisplayAmount": "$4.02 (10%)",
+            "Percentage": 10
+          }
+        },
+        "ProgramEligibility": {
+          "IsPrimeExclusive": false,
+          "IsPrimePantry": false
+        },
+        "SavingBasis": {
+          "Amount": 39.99,
+          "Currency": "USD",
+          "DisplayAmount": "$39.99"
+        },
+        "ViolatesMAP": false
+      }
+    ]
+  }
+}
+</code></pre>
+<p>Note: To avoid 3rd party fulfilled offers that might be resale priced, you can check the <code style="display: inline">Listings[].DeliveryInfo.IsAmazonFulfilled</code> property.</p>
+<h3>Erroneous Responses:</h3>
+<p><strong>Status Code:</strong> 400</p>
+<pre><code>Invalid ASIN.
+</code></pre><p><strong>Status Code:</strong> 401</p>
+<pre><code>Invalid API key.
+</code></pre><hr>
+<br>
+<h3>Usage Endpoint (GET)</h3>
+<p><strong>URL:</strong> <a href="/usage">https://amazon.cloudsolve.dev/usage</a></p>
+<p><strong>Query Parameter:</strong>
+    <em>key</em> (your designated API key)</p>
+<p><strong>Example URL:</strong> <a href="/usage?key=API_KEY">https://amazon.cloudsolve.dev/usage?key=API_KEY</a></p>
+<h3>Successful Response:</h3>
+<p><strong>Status Code:</strong> 200</p>
+<pre><code>{
+   "key": "API_KEY",
+   "requests": 5000
+}
+</code></pre><h3>Erroneous Responses:</h3>
+<p><strong>Status Code:</strong> 401</p>
+<pre><code>Invalid API key.
+</code></pre>
+</body>
+</html>
